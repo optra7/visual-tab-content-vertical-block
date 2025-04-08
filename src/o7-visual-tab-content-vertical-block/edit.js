@@ -186,7 +186,6 @@ export default function Edit({ attributes, setAttributes }) {
 					<div class='o7__visual-tab-content-list'>
 						<h2 class='o7__visual-tab-content-title'> {title}</h2>
 						<p class='o7__visual-tab-content-summary'>{summary}</p>
-
 						<div class='o7__visual-tab-content-item-container'>
 							{
 								cards.map((card, index) => (<a href={card.url} className={'o7__visual-tab-content-single-item-link ' + (index === activeCardIndex ? 'active' : '')} onMouseEnter={() => { setActiveCardIndex(index); }}>
