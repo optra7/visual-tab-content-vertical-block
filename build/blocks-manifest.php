@@ -14,6 +14,14 @@ return array(
 			
 		),
 		'attributes' => array(
+			'title' => array(
+				'type' => 'string',
+				'default' => 'Title'
+			),
+			'summary' => array(
+				'type' => 'string',
+				'default' => 'Summary'
+			),
 			'cardsAmount' => array(
 				'type' => 'integer',
 				'default' => 1
@@ -28,6 +36,10 @@ return array(
 						'image' => ''
 					)
 				)
+			),
+			'footerTitle' => array(
+				'type' => 'string',
+				'default' => 'Footer Title'
 			)
 		),
 		'supports' => array(
@@ -35,6 +47,8 @@ return array(
 		),
 		'textdomain' => 'o7-visual-tab-content-vertical-block',
 		'editorScript' => 'file:./index.js',
-		'render' => 'file:./render.php'
+		'viewScript' => 'file:./view.js',
+		'render' => 'file:./render.php',
+		'style' => 'file:./style-index.css'
 	)
 );

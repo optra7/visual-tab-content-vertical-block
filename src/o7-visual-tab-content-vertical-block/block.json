@@ -9,6 +9,14 @@
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Title"
+		},
+		"summary": {
+			"type": "string",
+			"default": "Summary"
+		},
 		"cardsAmount": {
 			"type": "integer",
 			"default": 1
@@ -23,6 +31,10 @@
 					"image" : ""
 				}
 			]
+		},
+		"footerTitle": {
+			"type": "string",
+			"default": "Footer Title"
 		}
 	},
 	"supports": {
@@ -30,5 +42,7 @@
 	},
 	"textdomain": "o7-visual-tab-content-vertical-block",
 	"editorScript": "file:./index.js",
-	"render": "file:./render.php"
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php",
+	"style": "file:./style-index.css"
 }

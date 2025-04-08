@@ -30,8 +30,9 @@ import { PanelBody, TextControl, Button, Panel, } from '@wordpress/components';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { cards } = attributes;
+	const { cards, title, summary, footerTitle } = attributes;
 	const [activePanelIndex, setActivePanelIndex] = useState(0);
+	const [activeCardIndex, setActiveCardIndex] = useState(0);
 
 	// EXPERIMENTAL
 	// USE_LATER
@@ -48,6 +49,28 @@ export default function Edit({ attributes, setAttributes }) {
 			<InspectorControls>
 				<Panel>
 					<PanelBody title={'Settings'} initialOpen={true}>
+						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							label={'Title'}
+							value={title || ''}
+							onChange={(value) => {
+								setAttributes({
+									title: value
+								})
+							}}
+						/>
+						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							label={'Summary'}
+							value={summary || ''}
+							onChange={(value) => {
+								setAttributes({
+									summary: value
+								})
+							}}
+						/>
 						<Button
 							variant='primary'
 							onClick={() => {
@@ -63,9 +86,9 @@ export default function Edit({ attributes, setAttributes }) {
 				{
 					cards.map((card, index) => (
 						<Panel>
-							<PanelBody title={'Card ' + (index + 1)} initialOpen={activePanelIndex === index} opened={activePanelIndex === index}  // Open only if this panel is active
+							<PanelBody title={'Card ' + (index + 1)} initialOpen={activeCardIndex === index} opened={activeCardIndex === index}  // Open only if this panel is active
 								onToggle={() => {
-									setActivePanelIndex(index); 
+									setActiveCardIndex(index);
 								}}>
 								<Button
 									variant='primary'
@@ -95,7 +118,7 @@ export default function Edit({ attributes, setAttributes }) {
 								<TextControl
 									__nextHasNoMarginBottom
 									__next40pxDefaultSize
-									label={'content'}
+									label={'Content'}
 									value={card.content || ''}
 									onChange={(value) => {
 										let tempCards = [...cards];
@@ -140,7 +163,17 @@ export default function Edit({ attributes, setAttributes }) {
 				}
 				<Panel>
 					<PanelBody title={'Footer'} initialOpen={true}>
-						Footer Content will be addded here
+						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							label={'Footer Title'}
+							value={footerTitle || ''}
+							onChange={(value) => {
+								setAttributes({
+									footerTitle: value
+								})
+							}}
+						/>
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
@@ -151,19 +184,21 @@ export default function Edit({ attributes, setAttributes }) {
 				<div class='o7__visual-tab-content-vertical-section-container'>
 
 					<div class='o7__visual-tab-content-list'>
-						<h2 class='o7__visual-tab-content-title'></h2>
-						<p class='o7__visual-tab-content-summary'></p>
+						<h2 class='o7__visual-tab-content-title'> {title}</h2>
+						<p class='o7__visual-tab-content-summary'>{summary}</p>
 
 						<div class='o7__visual-tab-content-item-container'>
 							{
-								cards.map((card, index) => (<a href='#' className='o7__visual-tab-content-single-item-link' onMouseEnter={() => { }}>
+								cards.map((card, index) => (<a href={card.url} className={'o7__visual-tab-content-single-item-link ' + (index === activeCardIndex ? 'active' : '')} onMouseEnter={() => { setActiveCardIndex(index); }}>
 									<div class='o7__visual-tab-content-item-single-heading-container'>
 										<b class='o7__visual-tab-content-item-single-heading-title'>{card.title}</b>
-										<span class='o7__visual-tab-content-single-item-heading-arrow'>
-											{'>'}
-										</span>
+										{index === activeCardIndex && (
+											<span class='o7__visual-tab-content-single-item-heading-arrow'>
+												{'>'}
+											</span>
+										)}
 									</div>
-									{index === activePanelIndex && (
+									{index === activeCardIndex && (
 										<p class='o7__visual-tab-content-single-item-summary'>
 											{card.content}
 										</p>
@@ -175,7 +210,9 @@ export default function Edit({ attributes, setAttributes }) {
 						<div class='o7__visual-tab-content-item-footer-container'>
 							<a href='#' class='o7__visual-tab-content-item-footer-link'>
 								<div class='o7__visual-tab-content-item-single-footer-container'>
-									<span class='o7__visual-tab-content-item-single-footer-title'></span>
+									<span class='o7__visual-tab-content-item-single-footer-title'>
+										{footerTitle}
+									</span>
 									<span class='o7__visual-tab-content-single-item-footer-arrow'>
 										<img alt='>' width='' height='' src='#' />
 									</span>
@@ -187,14 +224,13 @@ export default function Edit({ attributes, setAttributes }) {
 					<div class='o7__visual-tab-content-item-images-wrap'>
 						{cards.map((card, index) => (
 							<div key={index} className='o7__visual-tab-content-item-image-wrapper'>
-								{(card.image && (activePanelIndex === index)) && (
-									<img
-										src={card.image}
-										alt={`Card Image ${index + 1}`}
-										className='o7__visual-tab-content-item-image'
-										style={{ maxWidth: '100%', height: 'auto' }}
-									/>
-								)}
+								<img
+									src={card.image}
+									alt={`Card Image ${index + 1}`}
+									className={'o7__visual-tab-content-item-image ' + (index === activeCardIndex ? 'active' : '')}
+									style={{ maxWidth: '100%', height: 'auto' }}
+								/>
+
 							</div>
 						))}
 					</div>

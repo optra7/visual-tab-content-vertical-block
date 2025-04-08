@@ -1,0 +1,89 @@
+.o7__visual-tab-content-vertical-section {
+	margin: 0 auto;
+}
+
+.o7__visual-tab-content-vertical-section-container {
+	display: flex;
+	justify-content: space-between;
+	gap: 24px;
+}
+
+.o7__visual-tab-content-list,
+.o7__visual-tab-content-item-images-wrap {
+	flex: 1;
+}
+
+.o7__visual-tab-content-item-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.o7__visual-tab-content-single-item-link {
+	display: block;
+	padding: 24px;
+	max-width: 600px;
+	border-radius: 10px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.o7__visual-tab-content-single-item-link.active {
+	background-color: white;
+	box-shadow: 12px 28px 52px rgba(67, 98, 158, 0.1);
+}
+
+.o7__visual-tab-content-single-item-link
+	.o7__visual-tab-content-single-item-summary,
+.o7__visual-tab-content-single-item-link
+	.o7__visual-tab-content-single-item-heading-arrow {
+	display: none;
+}
+.o7__visual-tab-content-single-item-link.active
+	.o7__visual-tab-content-single-item-summary,
+.o7__visual-tab-content-single-item-link.active
+	.o7__visual-tab-content-single-item-heading-arrow {
+	display: block;
+}
+.o7__visual-tab-content-item-single-heading-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.o7__visual-tab-content-item-single-heading-title {
+	display: inline-block;
+}
+
+.o7__visual-tab-content-item-image-wrapper {
+	text-align: center;
+	position: relative;
+}
+.o7__visual-tab-content-item-image {
+	max-width: 100%;
+	height: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	object-position: center;
+	-o-object-fit: contain;
+	object-fit: contain;
+	transform: translateY(-60px) scale(0.95);
+	transition: all 0.5s ease;
+}
+.o7__visual-tab-content-item-image-wrapper img.active {
+	opacity: 1;
+	transform: translateY(0px) scale(1);
+}
+.o7__visual-tab-content-title,
+.o7__visual-tab-content-summary,
+.o7__visual-tab-content-item-single-footer-title {
+	padding-left: 24px;
+}
+
+/* Media query for mobile screens (max-width: 767px) */
+@media (max-width: 767px) {
+	/* 	To change footer social media logo's */
+	.o7__visual-tab-content-item-images-wrap {
+		display: none;
+	}
+}
